@@ -4,11 +4,12 @@
 #include <assert.h>
 #include <sys/mman.h>
 #include <fcntl.h>
+#include "pmon_ca9.h"
 
 
 int main(){
-    struct timespec start;
-    struct timespec stop;
+    unsigned long start, end;
+
     int inbyte_in;
     int val;
     int fd;
@@ -17,9 +18,10 @@ int main(){
     //UIO0
     fd = open("/dev/uio0", O_RDWR);
     if (fd<1) {
-        fprintf(stderr, "/dev/uio0 open error\n");        exit(-1);
+        fprintf(stderr, "/dev/uio0 open error\n");
+        exit(-1);
     }
-    base = (volatile unsigned int *)mmap(NULL, 0x10000, PROT_READ|PROT_WRITE,MA_SHARED, fd, 0);/*FPGAのレジスタをマッピング*/
+    base = (volatile unsigned int *)mmap(NULL, 0x10000, PROT_READ|PROT_WRITE,MAP_SHARED, fd, 0);/*FPGAのレジスタをマッピング*/
     
     if (!base){
         fprintf(stderr, "register mmap error \n");
@@ -30,6 +32,7 @@ int main(){
     int a[8][8], b[8][8];
     
     __asm__ __volatile__("" : : : "memory");
+    start = pmon_start_cycle_counter();
 
     printf("input A matrix\n");
     for (i = 0; i < 8; i++) {
@@ -71,10 +74,8 @@ int main(){
 
 
     __asm__ __volatile__("" : : : "memory");
-    clock_gettime(CLOCK_MONOTONIC,&stop);
-    printf("%ld\n", stop.tv_nsec-start.tv_nsec) ;
-    // clock_gettime(CLOCK_MONOTONIC_RAW,&stop);
-    // printf("%ld. %ld\n", stop.tv_sec-start.tv_sec, stop.tv_nsec-start.tv_nse) ;
+    end = pmon_read_cycle_counter();
+    printf("time = %ld, x = %d\n", end - start, x);
 
     munmap((void *)base, 0x1000);
 }          

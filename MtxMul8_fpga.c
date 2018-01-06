@@ -19,9 +19,10 @@ int main(){
     //UIO0
     fd = open("/dev/uio0", O_RDWR);
     if (fd<1) {
-        fprintf(stderr, "/dev/uio0 open error\n");        exit(-1);
+        fprintf(stderr, "/dev/uio0 open error\n");
+        exit(-1);
     }
-    base = (volatile unsigned int *)mmap(NULL, 0x10000, PROT_READ|PROT_WRITE,MA_SHARED, fd, 0);/*FPGAのレジスタをマッピング*/
+    base = (volatile unsigned int *)mmap(NULL, 0x10000, PROT_READ|PROT_WRITE,MAP_SHARED, fd, 0);/*FPGAのレジスタをマッピング*/
     
     if (!base){
         fprintf(stderr, "register mmap error \n");
