@@ -30,9 +30,7 @@ int main(){
 
     int i, j;
     int a[8][8], b[8][8];
-
-    // clock_gettime(CLOCK_MONOTONIC_RAW,&start);
-    // __asm__ __volatile__("" : : : "memory");
+    
     clock_gettime(CLOCK_MONOTONIC,&start);
     __asm__ __volatile__("" : : : "memory");
 
