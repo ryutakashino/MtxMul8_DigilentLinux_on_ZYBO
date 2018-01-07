@@ -75,7 +75,7 @@ int main(){
 
     __asm__ __volatile__("" : : : "memory");
     end = pmon_read_cycle_counter();
-    printf("time = %ld, x = %d\n", end - start, x);
+    printf("time = %ld", end - start);
 
     munmap((void *)base, 0x1000);
 }          
