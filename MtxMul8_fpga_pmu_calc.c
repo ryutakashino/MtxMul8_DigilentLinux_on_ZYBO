@@ -9,8 +9,7 @@
 
 int main(){
     unsigned long start, end;
-    __asm__ __volatile__("" : : : "memory");
-    start = pmon_start_cycle_counter();
+
 
     int fd;
     volatile unsigned long *base;
@@ -47,6 +46,8 @@ int main(){
     }
 
     //__asm__ __volatile__("" : : : "memory");
+    __asm__ __volatile__("" : : : "memory");
+    start = pmon_start_cycle_counter();
     // printf("START\n");
     base[192] = 1;
     while(base[192]!=0b11){
