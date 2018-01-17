@@ -49,7 +49,6 @@ int main(int argc, char *argv[])
             }
         }
     }
-    fclose(fp);
     
     clock_gettime(CLOCK_MONOTONIC,&stop);
 
@@ -63,6 +62,8 @@ int main(int argc, char *argv[])
     //     }
     //     printf("\n");
     // }
-    // printf("END\n");
+    // printf("END\n"); 
+   fclose(fp);
+
     return 0;
 }
