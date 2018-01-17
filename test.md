@@ -44,3 +44,11 @@ http://marsee101.blog19.fc2.com/blog-entry-3079.html#comment2723
 
 
 uImageとdevicetree.dtb、uEnv.txt、Boot.binをSDカードに入れてZYBOを起動する。
+
+
+
+2度close()をすると
+root@linaro-ubuntu-desktop:~/MtxMul8x8/sandbox/soft/memory# ./a.out tmp
+*** glibc detected *** ./a.out: double free or corruption (top): 0x00012008 ***
+Aborted
+となる。
