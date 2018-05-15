@@ -1,5 +1,6 @@
 ### Digilent Linux のビルド
-
+http://marsee101.blog19.fc2.com/blog-entry-3079.html#comment2723
+よりまとめ
 
 以下を追加
 ```
