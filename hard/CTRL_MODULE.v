@@ -1,0 +1,498 @@
+module CTRL_MODULE(
+    input ACLK, ARESETN,
+    input C_START,
+
+    output wire [2:0] A_SELECT,
+    output wire [2:0] B_SELECT,
+    output wire [5:0] SELECT,
+    output END_SIGNAL
+    );
+
+    reg [2:0] a_select;
+    reg [2:0] b_select;
+    reg [ 5 :0] select;
+    assign A_SELECT = a_select;
+    assign B_SELECT = b_select;
+    assign SELECT = select;
+    
+    reg [5:0] STATE;
+    `define P0 6'h00
+    `define P1 6'h01
+    `define P2 6'h02
+    `define P3 6'h03
+    `define P4 6'h04
+    `define P5 6'h05
+    `define P6 6'h06
+    `define P7 6'h07
+    `define P8 6'h08
+    `define P9 6'h09
+    `define P10 6'h0a
+    `define P11 6'h0b
+    `define P12 6'h0c
+    `define P13 6'h0d
+    `define P14 6'h0e
+    `define P15 6'h0f
+    `define P16 6'h10
+    `define P17 6'h11
+    `define P18 6'h12
+    `define P19 6'h13
+    `define P20 6'h14
+    `define P21 6'h15
+    `define P22 6'h16
+    `define P23 6'h17
+    `define P24 6'h18
+    `define P25 6'h19
+    `define P26 6'h1a
+    `define P27 6'h1b
+    `define P28 6'h1c
+    `define P29 6'h1d
+    `define P30 6'h1e
+    `define P31 6'h1f
+    `define P32 6'h20
+    `define P33 6'h21
+    `define P34 6'h22
+    `define P35 6'h23
+    `define P36 6'h24
+    `define P37 6'h25
+    `define P38 6'h26
+    `define P39 6'h27
+    `define P40 6'h28
+    `define P41 6'h29
+    `define P42 6'h2a
+    `define P43 6'h2b
+    `define P44 6'h2c
+    `define P45 6'h2d
+    `define P46 6'h2e
+    `define P47 6'h2f
+    `define P48 6'h30
+    `define P49 6'h31
+    `define P50 6'h32
+    `define P51 6'h33
+    `define P52 6'h34
+    `define P53 6'h35
+    `define P54 6'h36
+    `define P55 6'h37
+    `define P56 6'h38
+    `define P57 6'h39
+    `define P58 6'h3a
+    `define P59 6'h3b
+    `define P60 6'h3c
+    `define P61 6'h3d
+    `define P62 6'h3e
+    `define P63 6'h3f
+    always @(posedge ACLK)
+        begin: state_machine
+            if (ARESETN == 1'b0) begin
+                STATE <= `P0;
+                a_select <=  3 'b0;
+                b_select <=  3 'b0;
+                select <=  6 'd0;
+            end else begin
+                case (STATE)
+                    `P0: begin
+                        if (C_START) begin
+                            a_select <=  3 'b0;
+                            b_select <=  3 'b0;
+                            select <=  6 'd0;
+                            STATE <= `P1;
+                        end else begin
+                            STATE <= `P0;
+                        end
+                    end
+                    `P1: begin
+                        a_select <= 3'b000;
+                        b_select <= 3'b001;
+                        select <= 6'd1;
+                        STATE <= `P2;
+                    end
+                    `P2: begin
+                        a_select <= 3'b000;
+                        b_select <= 3'b010;
+                        select <= 6'd2;
+                        STATE <= `P3;
+                    end
+                    `P3: begin
+                        a_select <= 3'b000;
+                        b_select <= 3'b011;
+                        select <= 6'd3;
+                        STATE <= `P4;
+                    end
+                    `P4: begin
+                        a_select <= 3'b000;
+                        b_select <= 3'b100;
+                        select <= 6'd4;
+                        STATE <= `P5;
+                    end
+                    `P5: begin
+                        a_select <= 3'b000;
+                        b_select <= 3'b101;
+                        select <= 6'd5;
+                        STATE <= `P6;
+                    end
+                    `P6: begin
+                        a_select <= 3'b000;
+                        b_select <= 3'b110;
+                        select <= 6'd6;
+                        STATE <= `P7;
+                    end
+                    `P7: begin
+                        a_select <= 3'b000;
+                        b_select <= 3'b111;
+                        select <= 6'd7;
+                        STATE <= `P8;
+                    end
+                    `P8: begin
+                        a_select <= 3'b001;
+                        b_select <= 3'b000;
+                        select <= 6'd8;
+                        STATE <= `P9;
+                    end
+                    `P9: begin
+                        a_select <= 3'b001;
+                        b_select <= 3'b001;
+                        select <= 6'd9;
+                        STATE <= `P10;
+                    end
+                    `P10: begin
+                        a_select <= 3'b001;
+                        b_select <= 3'b010;
+                        select <= 6'd10;
+                        STATE <= `P11;
+                    end
+                    `P11: begin
+                        a_select <= 3'b001;
+                        b_select <= 3'b011;
+                        select <= 6'd11;
+                        STATE <= `P12;
+                    end
+                    `P12: begin
+                        a_select <= 3'b001;
+                        b_select <= 3'b100;
+                        select <= 6'd12;
+                        STATE <= `P13;
+                    end
+                    `P13: begin
+                        a_select <= 3'b001;
+                        b_select <= 3'b101;
+                        select <= 6'd13;
+                        STATE <= `P14;
+                    end
+                    `P14: begin
+                        a_select <= 3'b001;
+                        b_select <= 3'b110;
+                        select <= 6'd14;
+                        STATE <= `P15;
+                    end
+                    `P15: begin
+                        a_select <= 3'b001;
+                        b_select <= 3'b111;
+                        select <= 6'd15;
+                        STATE <= `P16;
+                    end
+                    `P16: begin
+                        a_select <= 3'b010;
+                        b_select <= 3'b000;
+                        select <= 6'd16;
+                        STATE <= `P17;
+                    end
+                    `P17: begin
+                        a_select <= 3'b010;
+                        b_select <= 3'b001;
+                        select <= 6'd17;
+                        STATE <= `P18;
+                    end
+                    `P18: begin
+                        a_select <= 3'b010;
+                        b_select <= 3'b010;
+                        select <= 6'd18;
+                        STATE <= `P19;
+                    end
+                    `P19: begin
+                        a_select <= 3'b010;
+                        b_select <= 3'b011;
+                        select <= 6'd19;
+                        STATE <= `P20;
+                    end
+                    `P20: begin
+                        a_select <= 3'b010;
+                        b_select <= 3'b100;
+                        select <= 6'd20;
+                        STATE <= `P21;
+                    end
+                    `P21: begin
+                        a_select <= 3'b010;
+                        b_select <= 3'b101;
+                        select <= 6'd21;
+                        STATE <= `P22;
+                    end
+                    `P22: begin
+                        a_select <= 3'b010;
+                        b_select <= 3'b110;
+                        select <= 6'd22;
+                        STATE <= `P23;
+                    end
+                    `P23: begin
+                        a_select <= 3'b010;
+                        b_select <= 3'b111;
+                        select <= 6'd23;
+                        STATE <= `P24;
+                    end
+                    `P24: begin
+                        a_select <= 3'b011;
+                        b_select <= 3'b000;
+                        select <= 6'd24;
+                        STATE <= `P25;
+                    end
+                    `P25: begin
+                        a_select <= 3'b011;
+                        b_select <= 3'b001;
+                        select <= 6'd25;
+                        STATE <= `P26;
+                    end
+                    `P26: begin
+                        a_select <= 3'b011;
+                        b_select <= 3'b010;
+                        select <= 6'd26;
+                        STATE <= `P27;
+                    end
+                    `P27: begin
+                        a_select <= 3'b011;
+                        b_select <= 3'b011;
+                        select <= 6'd27;
+                        STATE <= `P28;
+                    end
+                    `P28: begin
+                        a_select <= 3'b011;
+                        b_select <= 3'b100;
+                        select <= 6'd28;
+                        STATE <= `P29;
+                    end
+                    `P29: begin
+                        a_select <= 3'b011;
+                        b_select <= 3'b101;
+                        select <= 6'd29;
+                        STATE <= `P30;
+                    end
+                    `P30: begin
+                        a_select <= 3'b011;
+                        b_select <= 3'b110;
+                        select <= 6'd30;
+                        STATE <= `P31;
+                    end
+                    `P31: begin
+                        a_select <= 3'b011;
+                        b_select <= 3'b111;
+                        select <= 6'd31;
+                        STATE <= `P32;
+                    end
+                    `P32: begin
+                        a_select <= 3'b100;
+                        b_select <= 3'b000;
+                        select <= 6'd32;
+                        STATE <= `P33;
+                    end
+                    `P33: begin
+                        a_select <= 3'b100;
+                        b_select <= 3'b001;
+                        select <= 6'd33;
+                        STATE <= `P34;
+                    end
+                    `P34: begin
+                        a_select <= 3'b100;
+                        b_select <= 3'b010;
+                        select <= 6'd34;
+                        STATE <= `P35;
+                    end
+                    `P35: begin
+                        a_select <= 3'b100;
+                        b_select <= 3'b011;
+                        select <= 6'd35;
+                        STATE <= `P36;
+                    end
+                    `P36: begin
+                        a_select <= 3'b100;
+                        b_select <= 3'b100;
+                        select <= 6'd36;
+                        STATE <= `P37;
+                    end
+                    `P37: begin
+                        a_select <= 3'b100;
+                        b_select <= 3'b101;
+                        select <= 6'd37;
+                        STATE <= `P38;
+                    end
+                    `P38: begin
+                        a_select <= 3'b100;
+                        b_select <= 3'b110;
+                        select <= 6'd38;
+                        STATE <= `P39;
+                    end
+                    `P39: begin
+                        a_select <= 3'b100;
+                        b_select <= 3'b111;
+                        select <= 6'd39;
+                        STATE <= `P40;
+                    end
+                    `P40: begin
+                        a_select <= 3'b101;
+                        b_select <= 3'b000;
+                        select <= 6'd40;
+                        STATE <= `P41;
+                    end
+                    `P41: begin
+                        a_select <= 3'b101;
+                        b_select <= 3'b001;
+                        select <= 6'd41;
+                        STATE <= `P42;
+                    end
+                    `P42: begin
+                        a_select <= 3'b101;
+                        b_select <= 3'b010;
+                        select <= 6'd42;
+                        STATE <= `P43;
+                    end
+                    `P43: begin
+                        a_select <= 3'b101;
+                        b_select <= 3'b011;
+                        select <= 6'd43;
+                        STATE <= `P44;
+                    end
+                    `P44: begin
+                        a_select <= 3'b101;
+                        b_select <= 3'b100;
+                        select <= 6'd44;
+                        STATE <= `P45;
+                    end
+                    `P45: begin
+                        a_select <= 3'b101;
+                        b_select <= 3'b101;
+                        select <= 6'd45;
+                        STATE <= `P46;
+                    end
+                    `P46: begin
+                        a_select <= 3'b101;
+                        b_select <= 3'b110;
+                        select <= 6'd46;
+                        STATE <= `P47;
+                    end
+                    `P47: begin
+                        a_select <= 3'b101;
+                        b_select <= 3'b111;
+                        select <= 6'd47;
+                        STATE <= `P48;
+                    end
+                    `P48: begin
+                        a_select <= 3'b110;
+                        b_select <= 3'b000;
+                        select <= 6'd48;
+                        STATE <= `P49;
+                    end
+                    `P49: begin
+                        a_select <= 3'b110;
+                        b_select <= 3'b001;
+                        select <= 6'd49;
+                        STATE <= `P50;
+                    end
+                    `P50: begin
+                        a_select <= 3'b110;
+                        b_select <= 3'b010;
+                        select <= 6'd50;
+                        STATE <= `P51;
+                    end
+                    `P51: begin
+                        a_select <= 3'b110;
+                        b_select <= 3'b011;
+                        select <= 6'd51;
+                        STATE <= `P52;
+                    end
+                    `P52: begin
+                        a_select <= 3'b110;
+                        b_select <= 3'b100;
+                        select <= 6'd52;
+                        STATE <= `P53;
+                    end
+                    `P53: begin
+                        a_select <= 3'b110;
+                        b_select <= 3'b101;
+                        select <= 6'd53;
+                        STATE <= `P54;
+                    end
+                    `P54: begin
+                        a_select <= 3'b110;
+                        b_select <= 3'b110;
+                        select <= 6'd54;
+                        STATE <= `P55;
+                    end
+                    `P55: begin
+                        a_select <= 3'b110;
+                        b_select <= 3'b111;
+                        select <= 6'd55;
+                        STATE <= `P56;
+                    end
+                    `P56: begin
+                        a_select <= 3'b111;
+                        b_select <= 3'b000;
+                        select <= 6'd56;
+                        STATE <= `P57;
+                    end
+                    `P57: begin
+                        a_select <= 3'b111;
+                        b_select <= 3'b001;
+                        select <= 6'd57;
+                        STATE <= `P58;
+                    end
+                    `P58: begin
+                        a_select <= 3'b111;
+                        b_select <= 3'b010;
+                        select <= 6'd58;
+                        STATE <= `P59;
+                    end
+                    `P59: begin
+                        a_select <= 3'b111;
+                        b_select <= 3'b011;
+                        select <= 6'd59;
+                        STATE <= `P60;
+                    end
+                    `P60: begin
+                        a_select <= 3'b111;
+                        b_select <= 3'b100;
+                        select <= 6'd60;
+                        STATE <= `P61;
+                    end
+                    `P61: begin
+                        a_select <= 3'b111;
+                        b_select <= 3'b101;
+                        select <= 6'd61;
+                        STATE <= `P62;
+                    end
+                    `P62: begin
+                        a_select <= 3'b111;
+                        b_select <= 3'b110;
+                        select <= 6'd62;
+                        STATE <= `P63;
+                    end
+                    `P63: begin
+                        a_select <= 3'b111;
+                        b_select <= 3'b111;
+                        select <= 6'd63;
+                        STATE <= `P0;
+                    end
+                    default: STATE <= `P0;
+            endcase
+        end
+    end
+    reg end_signal;
+    always @(posedge ACLK)
+        begin
+            if (ARESETN == 1'b0) begin
+                END_SIGNAL <= 1'b0;
+            end else begin
+                if (STATE == `P63) begin
+                    END_SIGNAL <= 1'b1;
+                end else begin
+                    END_SIGNAL <= 1'b0;
+                end
+            end
+       end
+   assign END_SIGNAL = end_signal;
+endmodule
